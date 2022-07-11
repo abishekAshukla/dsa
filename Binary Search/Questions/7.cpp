@@ -6,25 +6,25 @@ using namespace std;
 bool isPossible(int arr[], int n, int m, int mid)
 {
     int studentCount = 1;
-    int pageSum = 0;
+    int totalPagesAllotedToCurrentStudent = 0;
 
     for (int i = 0; i < n; i++)
     {
-        if (pageSum + arr[i] <= mid)
+        if (totalPagesAllotedToCurrentStudent + arr[i] <= mid)
         {
-            pageSum += arr[i];
+            totalPagesAllotedToCurrentStudent += arr[i];
         }
         else
         {
             studentCount++;
             if (studentCount > m || arr[i] > mid)
             {
-                return false;
+                return false; // after allotting to all students, still some books are left to allott by keeping maxPages as mid
             }
-            pageSum = arr[i];
+            totalPagesAllotedToCurrentStudent = arr[i];
         }
     }
-    return true;
+    return true; // completion of for loop, indicates all books have been allotted successfully by keeping maxPages as mid
 }
 
 int allocateBooks(int arr[], int n, int m)
