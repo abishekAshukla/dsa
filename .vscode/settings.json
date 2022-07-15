@@ -4,6 +4,7 @@
         "xutility": "cpp",
         "xstring": "cpp",
         "ostream": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "vector": "cpp"
     }
 }

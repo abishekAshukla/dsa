@@ -36,6 +36,9 @@ int findDuplicate2(int arr[], int n)
     return ans;
 }
 
+// Better approach
+// For this approach we use the array indices to store the visited state of each number. We know that only the duplicate element would be visited more than once. For each number we go to its index position and multiply it with ’-1’, thus making it negative. In case of duplicate, it will visit twice and hence will become positive, which will be returned.
+
 int main()
 {
     int arr[] = {5, 4, 1, 2, 3, 5};
