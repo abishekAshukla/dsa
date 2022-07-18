@@ -1,56 +1,79 @@
+// https://www.codingninjas.com/codestudio/problems/sum-of-two-arrays_893186
+
 #include <iostream>
 using namespace std;
 #include <vector>
 
+vector<int> reverse(vector<int> &v)
+{
+    int s = 0;
+    int e = v.size() - 1;
+    while (s < e)
+    {
+        swap(v[s++], v[e--]);
+    }
+    return v;
+}
+
 vector<int> findArraySum(vector<int> &a, int n, vector<int> &b, int m)
 {
-    int lastIndexoftemp;
-    int lastIndexOfa = n - 1;
-    int lastIndexOfb = m - 1;
+    int i = n - 1;
+    int j = m - 1;
+    vector<int> ans;
+    int carry = 0;
 
-    if (m > n)
+    while (i >= 0, j >= 0)
     {
-        lastIndexoftemp = m - 1;
-    }
-    else
-    {
-        lastIndexoftemp = n - 1;
-    }
-    vector<int> temp(lastIndexoftemp + 1);
-
-    for (int i = 0; i < lastIndexoftemp + 1; i++)
-    {
-        if (lastIndexOfb < 0)
-        {
-            lastIndexOfb = 0;
-            b[0] = 0;
-        }
-
-        if (lastIndexOfa < 0)
-        {
-            lastIndexOfa = 0;
-            a[0] = 0;
-        }
-
-        temp[lastIndexoftemp] = a[lastIndexOfa] + b[lastIndexOfb];
-        lastIndexOfa--;
-        lastIndexOfb--;
-        lastIndexoftemp--;
+        int sum = a[i] + b[j] + carry;
+        carry = sum / 10;
+        int value = sum % 10;
+        ans.push_back(value);
+        i--;
+        j--;
     }
 
-    return temp;
+    // if b gets completed but some values of a is remaning
+    while (i >= 0)
+    {
+        int sum = a[i] + carry;
+        carry = sum / 10;
+        int value = sum % 10;
+        ans.push_back(value);
+        i--;
+    }
+
+    // if a gets completed but some values of b is remaning
+    while (j >= 0)
+    {
+        int sum = b[i] + carry;
+        carry = sum / 10;
+        int value = sum % 10;
+        ans.push_back(value);
+        j--;
+    }
+
+    // if a and b both gets completed but value of carry is remaining
+    while (carry != 0)
+    {
+        int sum = carry;
+        carry = sum / 10;
+        int value = sum % 10;
+        ans.push_back(value);
+    }
+
+    return reverse(ans);
 }
 
 int main()
 {
     vector<int> v1;
-    v1.push_back(2);
-    v1.push_back(3);
-    v1.push_back(4);
+    v1.push_back(9);
+    v1.push_back(9);
+    v1.push_back(9);
     vector<int> v2;
-    v2.push_back(4);
-    v2.push_back(6);
-    v2.push_back(1);
+    v2.push_back(9);
+    v2.push_back(9);
+    v2.push_back(9);
     vector<int> v3 = findArraySum(v1, 3, v2, 3);
     for (int i = 0; i < v3.size(); i++)
     {
