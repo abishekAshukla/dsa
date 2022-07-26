@@ -3,7 +3,7 @@ using namespace std;
 #include <vector>
 #include <algorithm>
 
-vector<int> productExceptSelf(vector<int> &nums)
+vector<int> productExceptSelf(vector<int> &nums) // some error
 {
     vector<int> left;
     int leftSideProduct = 1;
@@ -38,21 +38,50 @@ vector<int> productExceptSelf(vector<int> &nums)
         nums[i] = left[i - 1] * right[i + 1];
     }
 
-cout<<endl;
+    cout << endl;
     for (int i = 0; i < nums.size() - 1; i++)
     {
-        cout<<nums[i]<<" ";
+        cout << nums[i] << " ";
     }
-    
+}
+
+vector<int> productExceptSelf2(vector<int> &nums)
+{
+    int n = nums.size();
+
+    vector<int> left;
+    int leftSideProduct = 1;
+    for (int i = 0; i < n; i++)
+    {
+        leftSideProduct = leftSideProduct * nums[i];
+        left.push_back(leftSideProduct);
+    }
+
+    int prod = 1;
+    for (int i = (n - 1); i >= 1; i--)
+    {
+        int temp = nums[i];
+        nums[i] = left[i - 1] * prod;
+        prod = prod * temp;
+    }
+    nums[0] = prod; // handling exception
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << nums[i] << " ";
+    }
+
+    return nums;
 }
 
 int main()
 {
     vector<int> v;
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
     v.push_back(4);
-    productExceptSelf(v);
+    v.push_back(3);
+    v.push_back(1);
+    v.push_back(6);
+    // v.push_back(5);
+    productExceptSelf2(v);
     return 0;
 }

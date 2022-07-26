@@ -58,7 +58,8 @@ void nextPermutation(int arr[], int size)
 
 int main()
 {
-    int arr[] = {1, 2, 3};
+    int arr[] = {2, 1, 5, 6};
+    // int arr[] = {6, 5, 2, 1};
     int size = sizeof(arr) / sizeof(int);
     printArray(arr, size);
     nextPermutation(arr, size);
