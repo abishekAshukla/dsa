@@ -1,31 +1,31 @@
 #include <iostream>
 using namespace std;
+#include <algorithm>
 
-void maxSubArr(int arr[], int size)
+int maxSubArr(int nums[], int n)
 {
-    int maxProd = -9999;
-    int currentProd = 1;
+    int ans = nums[0];
+    int maxi = ans;
+    int mini = ans;
 
-    for (int i = 0; i < size; i++)
+    // int n = nums.size();
+    for (int i = 1; i < n; i++)
     {
-
-        currentProd = currentProd * arr[i];
-        if (currentProd > maxProd)
+        if (nums[i] < 0)
         {
-            maxProd = currentProd;
+            swap(maxi, mini);
         }
-        if (currentProd <= 0)
-        {
-            currentProd = 1;
-        }
+        maxi = max(nums[i], maxi * nums[i]);
+        mini = min(nums[i], mini * nums[i]);
+        ans = max(ans, maxi);
     }
-    cout << "Sum of elements of maximum subarray is " << maxProd << endl;
+    return ans;
 }
 
 int main()
 {
-    int arr[] = {2, 3, 4, 0, 5, 6};
+    int arr[] = {3, -1, 4};
     int size = sizeof(arr) / sizeof(int);
-    maxSubArr(arr, size);
+    cout<<maxSubArr(arr, size);
     return 0;
 }

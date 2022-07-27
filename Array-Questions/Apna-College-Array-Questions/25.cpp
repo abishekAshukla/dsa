@@ -1,46 +1,41 @@
 #include <iostream>
 using namespace std;
-// #include <vector>
+#include <vector>
+#include <algorithm>
 
-void findMin(int nums[], int size)
+int findMin(vector<int> &nums)
 {
-    int start = 0;
-    int end = size - 1;
-    int mid = start + (end - start) / 2;
-    int ans = nums[0];
+    int ans = 10000;
+    if (nums[0] < nums.back())
+        return nums[0]; // if array is not rotated
+    if (nums.size() == 1)
+        return nums[0];
 
-    while (start <= end)
+    int s = 0, e = nums.size() - 1;
+    while (s <= e)
     {
-        if (nums[mid] < nums[mid - 1])
+        int mid = s + (e - s) / 2;
+        if (nums[mid] >= nums[0])
         {
-            ans = nums[mid];
-        }
-        else if (nums[mid] > nums[0])
-        {
-            start = mid + 1;
+            s = mid + 1;
         }
         else
         {
-            end = mid - 1;
+            ans = min(ans, nums[mid]);
+            e = mid - 1;
         }
-        mid = start + (end - start) / 2;
     }
-    // return ans;
-    cout << ans;
+    return ans;
 }
 
 int main()
 {
-    // vector<int> v;
-    // v.push_back(4);
-    // v.push_back(5);
-    // v.push_back(6);
-    // v.push_back(7);
-    // v.push_back(0);
-    // v.push_back(1);
-    // v.push_back(2);
-    // findMin(v);
-    int arr[] = {3, 4, 5, 6, 7, 1, 2};
-    findMin(arr, 7);
+    vector<int> v1;
+    v1.push_back(3);
+    v1.push_back(4);
+    v1.push_back(5);
+    v1.push_back(1);
+    v1.push_back(2);
+    cout << findMin(v1);
     return 0;
 }
