@@ -5,32 +5,41 @@ using namespace std;
 
 vector<vector<int>> overlappedInterval(vector<vector<int>> &intervals)
 {
-    // sort(intervals.begin(), intervals.end());
-    vector<vector<int>> ans;
-    for (int i = 1; i < intervals.size(); i++)
+    int n = intervals.size() - 2;
+    sort(intervals.begin(), intervals.end(), greater<>()); // swap in descending order
+
+    for (int i = n; i >= 0; i--)
     {
-        if (intervals[i][0] >= intervals[i - 1][0] && intervals[i][0] >= intervals[i - 1][1])
+        if (intervals[i][0] >= intervals[i + 1][0] && intervals[i][0] <= intervals[i + 1][1])
         {
             vector<int> temp;
-            temp.push_back(intervals[i - 1][0]);
-            temp.push_back(intervals[i][1]);
-            ans.push_back(temp);
+            temp.push_back(intervals[i + 1][0]);
+            temp.push_back(max(intervals[i][1], intervals[i + 1][1]));
+            intervals.pop_back();
+            intervals.pop_back();
+            intervals.push_back(temp);
             continue;
         }
 
-        if (intervals[i][1] >= intervals[i - 1][0] && intervals[i][1] >= intervals[i - 1][1])
+        if (intervals[i][1] >= intervals[i + 1][0] && intervals[i][1] <= intervals[i + 1][1])
         {
             vector<int> temp;
-            temp.push_back(intervals[i - 1][0]);
-            temp.push_back(intervals[i][1]);
-            ans.push_back(temp);
+            temp.push_back(intervals[i + 1][0]);
+            temp.push_back(max(intervals[i][1], intervals[i + 1][1]));
+            intervals.pop_back();
+            intervals.pop_back();
+            intervals.push_back(temp);
         }
     }
+
+    return intervals;
 }
+// ^ test cases failed
 
 void printVector(vector<vector<int>> vec)
 {
 
+    sort(vec.begin(), vec.end(), greater<>());
     for (int i = 0; i < vec.size(); i++)
     {
         cout << vec[i][0] << " " << vec[i][1] << endl;
@@ -40,26 +49,24 @@ void printVector(vector<vector<int>> vec)
 int main()
 {
     vector<vector<int>> quest;
-    vector<int> p1;
-    p1.push_back(1);
-    p1.push_back(3);
-    quest.push_back(p1);
-    vector<int> p2;
-    p2.push_back(2);
-    p2.push_back(4);
-    quest.push_back(p2);
-    vector<int> p3;
-    p3.push_back(6);
-    p3.push_back(8);
-    quest.push_back(p3);
-    vector<int> p4;
-    p4.push_back(9);
-    p4.push_back(10);
-    quest.push_back(p4);
 
-    vector<int> v2 = {11, 13};
+    vector<int> v1 = {6, 8};
+    quest.push_back(v1);
+
+    vector<int> v2 = {1, 9};
     quest.push_back(v2);
 
+    vector<int> v3 = {2, 4};
+    quest.push_back(v3);
+
+    vector<int> v4 = {4, 7};
+    quest.push_back(v4);
+
+    // printVector(quest);
+
+    vector<vector<int>> ans = overlappedInterval(quest);
+    // quest.reserve();
     printVector(quest);
+
     return 0;
 }
