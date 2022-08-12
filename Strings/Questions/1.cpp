@@ -12,7 +12,7 @@ char getMaxCharacter(string s)
     {
         arr[s[i] - 'a']++;
     }
-    // arr[] stores count of each every character ('a' to 'z') in string s
+    // arr[] stores count of each character ('a' to 'z') in string s
     int maxCount = -1;
     int indexOfMostRepeatedChar = -1;
     for (int i = 0; i < 26; i++)
