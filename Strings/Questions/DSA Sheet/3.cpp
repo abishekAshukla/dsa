@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/valid-parentheses/submissions/
+// Explanation: striver's video
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,43 +22,34 @@ bool isSame(char ch1, char ch2) // do given brackets match or not
     return false;
 }
 
-bool checkEven(string str) // checking if length of string is even or not
-{
-    int remainder = str.length() % 2;
-    if (remainder == 0)
-    {
-        return true;
-    }
-    return false;
-}
-
 bool isValid(string s)
 {
-    if (checkEven(s) == false)
-        return false;
-
     vector<char> openingBrackets;
 
     for (int i = 0; i < s.length(); i++)
     {
-        if (s[i] == '(' || s[i] || '[' || s[i] == '{')
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{')
         {
-            openingBrackets.push_back(s[i]);
+            openingBrackets.push_back(s[i]); 
         }
         else
         {
             if (openingBrackets.size() == 0)
             {
-                return false;
+                return false; // no need to check further
             }
             if (isSame(openingBrackets[openingBrackets.size() - 1], s[i]) == false)
             {
                 return false;
             }
+            else
+            {
+                openingBrackets.pop_back();
+            }
         }
     }
 
-    if (openingBrackets.size() == 0)
+    if (openingBrackets.size() != 0) // openingBrackets vector should be empty after traversing given string for valid parenthesses
     {
         return false;
     }
@@ -66,18 +59,8 @@ bool isValid(string s)
 
 int main()
 {
-    string str = "(){";
-    // cout << isSame('[', ')');
-
-    // cout << isValid(str);
-
-    vector<char> ch = {'d', 'e'};
-    // ch.push_back('f');
-    // ch.pop_back();
-    // cout<<ch.size();
-    // cout << ch[ch.size() - 1];
-
-    cout<<isValid("([");
+    string str = "()[]{}";
+    cout << isValid(str);
 
     return 0;
 }
