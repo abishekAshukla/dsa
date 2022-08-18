@@ -30,6 +30,6 @@ int main()
 {
     string str = "HEY U";
     cout<<printSequence(str);
-
+    
     return 0;
 }
