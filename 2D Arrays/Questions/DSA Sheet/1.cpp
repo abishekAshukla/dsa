@@ -20,13 +20,19 @@ vector<int> findDiagonalOrder(vector<vector<int>> &mat)
 
     int rowSize = mat.size();
     int colSize = mat[0].size();
-    bool alternate = false;
+    bool alternate = false; // it is used to alter the direction of diagonal
 
+    if (rowSize == 1) // exception case for current solution
+        return mat[0];
+
+    // printing all the diagonals which starts from left most column
     for (int i = 0; i < rowSize; i++)
     {
         int row = i;
         int col = 0;
-        vector<int> temp;
+
+        vector<int> temp; // stores current diagonal
+
         while (row >= 0)
         {
             if (col > (colSize - 1))
@@ -37,6 +43,8 @@ vector<int> findDiagonalOrder(vector<vector<int>> &mat)
             row--;
             col++;
         }
+
+        // identifying in which direction to print diagonal
         if (alternate == true)
         {
             reverseVector(temp);
@@ -47,12 +55,14 @@ vector<int> findDiagonalOrder(vector<vector<int>> &mat)
             alternate = true;
         }
 
+        // pushing the current diagonal in ans
         for (int i = 0; i < temp.size(); i++)
         {
             ans.push_back(temp[i]);
         }
     }
 
+    // printing all the diagonals which starts from bottom most row
     for (int i = 1; i < colSize; i++)
     {
         int row = rowSize - 1;
@@ -60,6 +70,11 @@ vector<int> findDiagonalOrder(vector<vector<int>> &mat)
         vector<int> temp;
         while (col < colSize)
         {
+            if (row < 0)
+            {
+                break;
+            }
+
             temp.push_back(mat[row][col]);
             row--;
             col++;
@@ -85,13 +100,6 @@ vector<int> findDiagonalOrder(vector<vector<int>> &mat)
 int main()
 {
     vector<vector<int>> quest = {{00, 01, 02, 03, 04}, {10, 11, 12, 13, 14}, {20, 21, 22, 23, 24}, {30, 31, 32, 33, 34}, {40, 41, 42, 43, 44}};
-    // vector<vector<int>> quest = {{00, 01, 02, 03}, {10, 11, 12, 13}, {20, 21, 22, 23}};
-    // vector<vector<int>> quest = {{00, 01, 02}, {10, 11, 12}, {20, 21, 22}, {30, 31, 32}};
-    vector<int> ans = findDiagonalOrder(quest);
-    for (int i = 0; i < ans.size(); i++)
-    {
-        cout << ans[i] << " ";
-    }
 
     return 0;
 }
