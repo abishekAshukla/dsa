@@ -19,5 +19,8 @@ int main()
     cout << *(3 + arr) << endl;
     // formula: arr[i] = i[arr] = *(arr + i) = *(i + arr)
 
+    // questions:
+    // https://www.codingninjas.com/codestudio/guided-paths/pointers/content/235644/offering/3169067
+
     return 0;
 }

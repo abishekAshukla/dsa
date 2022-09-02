@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace std;
 
+// https://www.codingninjas.com/codestudio/guided-paths/pointers/content/235644/offering/3168914
+// ^ study above question
+
 int main()
 {
     int i = 5;
